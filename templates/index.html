@@ -2,30 +2,57 @@
 <html>
 <head>
 	<meta name = 'viewport' content = "width=device-width initial-scale = 1">
-    <link rel='stylesheet' href = "{{url_for('static',filename='style.css')}}">
+    <link rel='stylesheet' href = "{{url_for('static',filename='styles.css')}}">
 </head>
 <body>
 	<div class = 'wrapper'>
 		<div class = 'content'>
 			<img src="{{url_for('static',filename='HP-logo.svg')}}">
-			<strong>Rs. 67,000</strong>
-			<input type="button" value="Add to Cart">
+			<strong>Rs. 67000</strong>
+			<input type="button" value="Add to Cart" id='hp'>
 		</div>
 		<div class = 'content'>
-			<img src="{{url_for('static',filename='Lenovo-logo.svg')}}">
-			<strong>Rs. 65,000</strong>
-			<input type="button" value="Add to Cart">
+			<img src= "{{url_for('static',filename='Lenovo-logo.svg')}}">
+			<strong>Rs. 65000</strong>
+			<input type="button" value="Add to Cart" id='lenovo'>
 		</div>
 		<div class = 'content'>
 			<img src="{{url_for('static',filename='Dell-logo.svg')}}">
-			<strong>Rs. 70,000</strong>
-			<input type="button" value="Add to Cart">
+			<strong>Rs. 70000</strong>
+			<input type="button" value="Add to Cart" id='dell'>
 		</div>
 		<div class = 'content'>
 			<img src="{{url_for('static',filename='Apple-logo.svg')}}">
-			<strong>Rs. 1,10,000</strong>
-			<input type="button" value="Add to Cart">
+			<strong>Rs. 110000</strong>
+			<input type="button" value="Add to Cart" id='apple'>
 		</div>
 	</div>
+	<table>
+	    <thead>
+	        <tr>
+        	    <th colspan="2">Cart</th>
+	        </tr>
+	    </thead>
+	    <tbody>
+        	<tr>
+	            <td></td>
+        	    <td></td>
+	        </tr>
+	        <tr>
+	            <td></td>
+        	    <td></td>
+	        </tr>
+	        <tr>
+	            <td></td>
+        	    <td></td>
+	        </tr>
+	        <tr>
+	            <td></td>
+        	    <td></td>
+	        </tr>
+	    </tbody>
+	</table>
+	<strong id="total"></strong>
+	<script src="{{url_for('static',filename='index.js')}}"></script>
 </body>
 </html>
