@@ -21,9 +21,28 @@ height: 100vh;
 	display:flex;
 	flex-direction:column;
 	justify-content:space-around;
+	align-items: center;
 	width:20%;
 	height:90%;
 	border: 1px solid lightgray;
 	border-radius: 8px;
+	box-shadow: 5px 5px 5px lightgray;
 }
 
+.wrapper div img
+{	
+	width: 90%;
+	height: 20%;
+	
+}
+
+.wrapper div input
+{
+	background-color: dodgerblue;
+	color:white;
+	width:90%;
+	height:10%;
+	border:1px;
+	border-radius:8px;
+	cursor:pointer;
+}
