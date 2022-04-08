@@ -1,5 +1,5 @@
 localStorage.clear();
-hp.onclick = (event) => {
+hp.onclick = function addToCart(event){
 	var price = event.target.previousElementSibling.textContent;
 	localStorage.setItem('product','HP');	
 	if(localStorage.getItem('productarray') && localStorage.getItem('product'))
@@ -70,4 +70,17 @@ function print()
 	for(index=0;index<priceArray.length;index++)
 		sum+=parseInt(priceArray[index]);
 	document.getElementById('total').textContent = `Total : Rs. ${sum}`;
+}
+
+function myFunc(event)
+{
+	alert('Hai');
+	var current = event.target;
+	var price = current.previousElementSibling;
+	var amount = parseInt(price.textContent);
+	price.textContent='';
+	var product = price.previousElementSibling;
+	product.textContent = "";
+	var x = document.getElementById('total').textContent
+	x.textContent = parseInt(x.textContent) - amount;
 }
