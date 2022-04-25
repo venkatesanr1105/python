@@ -1,86 +1,81 @@
 localStorage.clear();
-function addToCart(button,productName)
-{
-	var price = button.previousElementSibling.textContent;
-	localStorage.setItem('product',productName);	
-	if(localStorage.getItem('productarray') && localStorage.getItem('product'))
-		localStorage.setItem('productarray',localStorage.getItem('productarray')+','+localStorage.getItem('product'));
-	else
-		localStorage.setItem('productarray',localStorage.getItem('product'));
-	if(localStorage.getItem('pricearray'))
-		localStorage.setItem('pricearray',localStorage.getItem('pricearray')+','+price.replace('Rs. ',''));
-	else
-		localStorage.setItem('pricearray',price.replace('Rs. ',''));
-	print();
-	button.style.backgroundColor = 'Orange';
-	button.value = 'Remove Item';
+function computeTotal(){
+
+    var parent = document.getElementById('cart');
+    var element = parent.firstElementChild;
+    let sum = 0;
+    while(element && element.firstElementChild)
+    {
+        var price = element.firstElementChild.nextElementSibling.nextElementSibling;
+        price = price.textContent.replace('Rs. ','');
+        price = parseInt(price);
+        sum+=price
+        element = element.nextElementSibling;
+    }
+    total.textContent = `Total : Rs. ${sum}`;
 }
 
-function removeItem(button, productName)
+function addToCart(current)
 {
-	var regExp =new RegExp(productName);
-	console.log(regExp);
-	console.log(localStorage.getItem('productarray'));
-	console.log(regExp.test(localStorage.getItem('productarray')));
-	// localStorage.setItem('productArray',);
+    var parrent = current.parentElement;
+    var image = parrent.firstElementChild;
+    var imageClone = image.cloneNode();
+    var product = image.nextElementSibling;
+    var productClone = product.cloneNode(true);
+    var price = product.nextElementSibling;
+    var priceClone = price.cloneNode(true);
+    var closeButton = document.createElement('input');
+    closeButton.setAttribute('id','closebutton');
+    closeButton.setAttribute('type','button');
+    closeButton.setAttribute('value','Remove');
+    var cart = document.createElement('div');
+    document.getElementById('cart').appendChild(cart);
+    cart.appendChild(imageClone);
+    cart.appendChild(productClone);
+    cart.appendChild(priceClone);
+    cart.appendChild(closeButton);
+    computeTotal(cart);
+    closeButton.onclick = (event) => {
+        event.target.parentElement.remove();
+        var count = localStorage.getItem('count');
+        count = parseInt(count)-1;
+        localStorage.setItem('count',count);
+        display();
+        computeTotal(cart);
+    }
+    if(localStorage.getItem('count'))
+    {
+        var count = localStorage.getItem('count');
+        count = parseInt(count)+1;
+        localStorage.setItem('count',count);
+    }
+    else
+        localStorage.setItem('count',1);
+    display();
+}
+
+function display()
+{
+    if(localStorage.getItem('count'))
+        document.getElementById('count').textContent = localStorage.getItem('count');
 }
 hp.onclick = (event) => {
-	if(event.target.value=='Add to Cart')
-		addToCart(event.target,'HP');
-	else
-		removeItem(event.target,'HP');
-		console.log('Hi');
-}
-lenovo.onclick = (event) => {
-	if(event.target.value=='Add to Cart')
-		addToCart(event.target,'Lenovo');
-	else
-	// removeElement(event.target);
-	console.log('Hi');
+    addToCart(event.target);
 }
 
+lenovo.onclick = (event) => {
+    addToCart(event.target);
+} 
+
 dell.onclick = (event) => {
-	if(event.target.value=='Add to Cart')
-		addToCart(event.target,'Dell');
-	else
-	// removeElement(event.target);
-	console.log('Hi');	
+    addToCart(event.target);
 }
 
 apple.onclick = (event) => {
-	if(event.target.value=='Add to Cart')
-		addToCart(event.target,'Apple');
-	else
-	// removeElement(event.target);
-	console.log('Hi');
+    addToCart(event.target);
 }
 
-function print()
-{
-	var productArray = localStorage.getItem('productarray').split(',');
-	var priceArray = localStorage.getItem('pricearray').split(',');
-	var tableArray = document.getElementsByTagName('td');
-	var k=0;
-	for(index = 0;index<tableArray.length;index+=3)
-		tableArray[index].textContent = productArray[k++];
-	var l =0;
-	var sum = 0;
-	for(index = 1;index<tableArray.length;index+=3)
-		tableArray[index].textContent = priceArray[l++];
-	for(index=0;index<priceArray.length;index++)
-		sum+=parseInt(priceArray[index]);
-	document.getElementById('total').textContent = `Total : Rs. ${sum}`;
+cartimg.onclick = (event) => {
+    var cart = event.target.parentElement.nextElementSibling;
+    cart.style.display = (cart.style.display == 'none')?'block':'none';
 }
-
-// function removeElement(event)
-// {
-// 	var current = event.target.parentElement;
-// 	var price = current.previousElementSibling;
-// 	var amount = parseInt(price.textContent);
-// 	price.textContent='';
-// 	var product = price.previousElementSibling;
-// 	product.textContent = "";
-// 	var x = document.getElementById('total').textContent.replace('Total : Rs. ','');
-// 	var total = parseInt(x) - amount
-// 	document.getElementById('total').textContent = `Total : Rs. ${total}`;
-// }
